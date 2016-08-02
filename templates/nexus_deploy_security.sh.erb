@@ -1,0 +1,35 @@
+#!/bin/bash
+
+KOMEA_LOCATION="<%= @base_location %>"
+NEXUS_URL="<%= @nexus_url %>"
+NEXUS_LOGIN=$1
+NEXUS_PASSWORD=$2
+NEXUS_REPOSITORY="<%= @nexus_repository %>"
+VERSION="<%= @version %>"
+
+APP_SECURITY_PATH="$KOMEA_LOCATION/application-security"
+SECURITY_GROUP_ID="org/komea/security"
+
+retrieveFromNexus() {
+  OUTPUT=$1
+  REPO=$2
+  GROUP_ID=$3
+  ARTIFACT=$4
+  ARTIFACT_VERSION=$5
+  EXTENSION=$6
+
+  curl -X GET -u $NEXUS_LOGIN:$NEXUS_PASSWORD -o "$OUTPUT.md5" "$NEXUS_URL/content/repositories/$REPO/$GROUP_ID/$ARTIFACT/$ARTIFACT_VERSION/$ARTIFACT-$ARTIFACT_VERSION.$EXTENSION.md5"
+  OUTPUT_MD5=`md5sum $OUTPUT | awk '{ print $1 }'`
+  REMOTE_MD5=`cat $OUTPUT.md5`
+
+  if [ "$OUTPUT_MD5" =  "$REMOTE_MD5" ]
+  then
+    echo "$OUTPUT is already the latest version!"
+  else
+    echo "$OUTPUT_MD5 != $REMOTE_MD5"
+    curl -X GET -u $NEXUS_LOGIN:$NEXUS_PASSWORD -o $OUTPUT  "$NEXUS_URL/content/repositories/$REPO/$GROUP_ID/$ARTIFACT/$ARTIFACT_VERSION/$ARTIFACT-$ARTIFACT_VERSION.$EXTENSION"
+  fi
+}
+
+# Deploy Sprint-Boot Jars
+retrieveFromNexus "$APP_SECURITY_PATH/application-security.jar" $NEXUS_REPOSITORY $SECURITY_GROUP_ID "security-application" $VERSION "jar"
