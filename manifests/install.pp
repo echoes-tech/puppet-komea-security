@@ -5,6 +5,7 @@ class komea_security::install (
   $nexus_repository       = $::komea_security::nexus_repository,
   $nexus_user             = $::komea_security::nexus_user,
   $nexus_password         = $::komea_security::nexus_password,
+  $nexus_group_id         = $::komea_security::nexus_group_id,
   $base_location          = $::komea_security::base_location,
   $max_heap_size          = $::komea_security::max_heap_size,
   $initial_heap_size      = $::komea_security::initial_heap_size

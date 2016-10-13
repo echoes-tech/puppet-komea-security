@@ -11,6 +11,7 @@ class komea_security::params {
   $nexus_repository       = "komea"
   $nexus_user             = undef
   $nexus_password         = undef
+  $nexus_group_id         = "fr/echoes/ksf/security"
 
   $base_location          = "/opt/echoes/security"
   $logs_location          = "/var/log"

@@ -8,7 +8,7 @@ NEXUS_REPOSITORY="<%= @nexus_repository %>"
 VERSION="<%= @version %>"
 
 APP_SECURITY_PATH="$KOMEA_LOCATION/application-security"
-SECURITY_GROUP_ID="org/komea/security"
+SECURITY_GROUP_ID="<%= @nexus_group_id %>"
 
 retrieveFromNexus() {
   OUTPUT=$1

@@ -5,6 +5,7 @@ class komea_security (
   $nexus_url              = $::komea_security::params::nexus_url,
   $nexus_user             = $::komea_security::params::nexus_user,
   $nexus_password         = $::komea_security::params::nexus_password,
+  $nexus_group_id         = $::komea_security::params::nexus_group_id,
   $base_location          = $::komea_security::params::base_location,
   $logs_location          = $::komea_security::params::logs_location,
   $port                   = $::komea_security::params::port,
