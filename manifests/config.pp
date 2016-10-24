@@ -18,6 +18,7 @@ class komea_security::config (
   file { "${app_path}application.properties":
     ensure  => file,
     content => template("${module_name}/application.properties.erb"),
+    notify  => Service['application-security']
   }
 
   file { "$app_logs_location":
@@ -28,7 +29,7 @@ class komea_security::config (
   file { "${app_path}logback.xml":
     ensure  => file,
     content => template("${module_name}/logback.xml.erb"),
-    notify => Service['application-security']
+    notify  => Service['application-security']
   }
 
 }
